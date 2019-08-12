@@ -19,22 +19,19 @@ public class ThreadDemo10 {
                 return "String";
             }
         });
-        System.out.println("´Ë·½·¨±ØĞëµÃµÈµ½submit.get Ö´ĞĞÍê±ÏÖ®ºó");
+        System.out.println("å¼€å¯å¦ä¸€ä¸ªçº¿ç¨‹å¼‚æ­¥æ¥æ”¶ä¸Šä¸€ä¸ªçº¿ç¨‹çš„è¿”å›ç»“æœ");
         cachePool.execute(new Runnable() {
             
             @Override
             public void run() {
                 try {
                     if(submit.get().equals("String")) {
-                        //Ö´ĞĞÍ¨ÖªÂß¼­
-                        System.out.println("Ö´ĞĞÍ¨ÖªÂß¼­");
+                        //è¿›è¡Œé€»è¾‘å¤„ç†ï¼Œä¾‹å¦‚æ›´æ–°æ•°æ®åº“ä¿¡æ¯ï¼Œè¿”å›å‰ç«¯æç¤º
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
             }
         });
-        System.out.println("´Ë·½·¨±ØĞëµÃµÈµ½submit.get ");
-    
     }
 }
