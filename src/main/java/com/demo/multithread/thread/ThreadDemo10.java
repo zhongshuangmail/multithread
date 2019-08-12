@@ -5,8 +5,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class ThreadDemo10 {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -19,14 +17,14 @@ public class ThreadDemo10 {
                 return "String";
             }
         });
-        System.out.println("å¼€å¯å¦ä¸€ä¸ªçº¿ç¨‹å¼‚æ­¥æ¥æ”¶ä¸Šä¸€ä¸ªçº¿ç¨‹çš„è¿”å›ç»“æœ");
+        System.out.println("¿ªÆôÁíÒ»¸öÏß³ÌÒì²½½ÓÊÕÉÏÒ»¸öÏß³ÌµÄ·µ»Ø½á¹û");
         cachePool.execute(new Runnable() {
             
             @Override
             public void run() {
                 try {
                     if(submit.get().equals("String")) {
-                        //è¿›è¡Œé€»è¾‘å¤„ç†ï¼Œä¾‹å¦‚æ›´æ–°æ•°æ®åº“ä¿¡æ¯ï¼Œè¿”å›å‰ç«¯æç¤º
+                        //½øĞĞÂß¼­´¦Àí£¬ÀıÈç¸üĞÂÊı¾İ¿âĞÅÏ¢£¬·µ»ØÇ°¶ËÌáÊ¾
                     }
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
