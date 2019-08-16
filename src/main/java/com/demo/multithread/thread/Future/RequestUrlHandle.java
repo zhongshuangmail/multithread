@@ -8,55 +8,32 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-
+@Component
 public abstract class RequestUrlHandle {
-    
-    
-    
-   
-    
-    private boolean flag=false;
-    
-    private String result;
-    
-    public abstract String invoke(RequestParam requestClient) throws InterruptedException;
-    
-    public abstract void receive() throws InterruptedException;
-    
-    
-    public abstract Protocol protocol();
-    
-    
-    public String request(RequestParam requestClient) throws InterruptedException {
-        System.out.println("发送请求");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    receive();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-        String invoke = this.invoke(requestClient);
-        return invoke;
-    }
 
-    public boolean isFlag() {
-        return flag;
-    }
+	
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
-    }
+	public abstract String invoke(RequestResult requestClient, RequestParam param) throws InterruptedException;
 
-    public String getResult() {
-        return result;
-    }
+	public abstract void receive(RequestResult requestClient,RequestParam param) throws InterruptedException;
 
-    public void setResult(String result) {
-        this.result = result;
-    }
-    
+	public abstract Protocol protocol();
+
+	public String request(RequestResult result, RequestParam param) throws InterruptedException {
+		System.out.println(Thread.currentThread().getName() + "发送请求" + param);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					receive(result,param);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		String invoke = this.invoke(result, param);
+		return invoke;
+	}
+
+
 }
