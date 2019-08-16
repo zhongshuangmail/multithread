@@ -8,21 +8,21 @@ public class HttpURLHandle extends RequestUrlHandle {
     
 
     @Override
-    public synchronized String invoke(RequestResult requestParam,RequestParam param) throws InterruptedException{
-    	while(!requestParam.isFlag()) {
+    public synchronized String invoke(RequestResult result,RequestParam param) throws InterruptedException{
+    	while(!result.isFlag()) {
             wait();
         }
-        return requestParam.getResult();
+        return result.getResult();
     }
 
     @Override
-    public synchronized void receive(RequestResult requestParam,RequestParam param)  throws InterruptedException {
+    public synchronized void receive(RequestResult result,RequestParam param)  throws InterruptedException {
        Thread.sleep(1000);
-       if(requestParam.isFlag()) {
+       if(result.isFlag()) {
           return; 
        }
-       requestParam.setResult(Thread.currentThread().getName()+"返回结果"+param.getParamJson());
-       requestParam.setFlag(true);
+       result.setResult(Thread.currentThread().getName()+"返回结果"+param.getParamJson());
+       result.setFlag(true);
        notify();
     }
 
