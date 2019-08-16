@@ -4,26 +4,15 @@ package com.demo.multithread
 import org.springframework.stereotype.Component;
 @Component
 public class HttpURLHandle extends RequestUrlHandle {
-    
-    
 
     @Override
-    public synchronized String invoke(RequestResult result,RequestParam param) throws InterruptedException{
-    	while(!result.isFlag()) {
-            wait();
-        }
-        return result.getResult();
+    public synchronized String invoke(RequestParam param) throws InterruptedException{
+        return  param.getResult();
     }
 
     @Override
-    public synchronized void receive(RequestResult result,RequestParam param)  throws InterruptedException {
-       Thread.sleep(1000);
-       if(result.isFlag()) {
-          return; 
-       }
-       result.setResult(Thread.currentThread().getName()+"返回结果"+param.getParamJson());
-       result.setFlag(true);
-       notify();
+    public synchronized void receive(RequestParam param)  throws InterruptedException {
+    	param.setResult(Thread.currentThread().getName()+"返回结果"+param.getParamJson());
     }
 
     @Override

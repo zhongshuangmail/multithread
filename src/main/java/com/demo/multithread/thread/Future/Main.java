@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 /**
  * futrue模式，循环等待结果返回，另一个线程负责写入数据，多线程下，需要多个RequestParam参数
+ * 
  * @author Administrator
  *
  */
@@ -26,10 +27,9 @@ public class Main {
 	}
 
 	public void test(RequestParam param) {
-		RequestResult result = new RequestResult();
 		RequestUrlHandle requestUrlHandle = map.get(param.getProtocol());
 		try {
-			String request = requestUrlHandle.request(result, param);
+			String request = requestUrlHandle.request(param);
 			System.out.println(request);
 		} catch (InterruptedException e) {
 			e.printStackTrace();

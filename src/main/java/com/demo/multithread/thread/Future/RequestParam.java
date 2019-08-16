@@ -1,11 +1,16 @@
 package com.demo.multithread.thread.Future;
 
-public class RequestParam {
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class  RequestParam{
 	private Protocol protocol;
 	
 	private String paramJson;
 	
-
+	private String result;
 
 
 	public RequestParam(Protocol protocol, String paramJson) {
@@ -21,24 +26,6 @@ public class RequestParam {
 	}
 
 
-	public Protocol getProtocol() {
-		return protocol;
-	}
-
-
-	public void setProtocol(Protocol protocol) {
-		this.protocol = protocol;
-	}
-
-
-	public String getParamJson() {
-		return paramJson;
-	}
-
-
-	public void setParamJson(String paramJson) {
-		this.paramJson = paramJson;
-	}
 
 	
 }

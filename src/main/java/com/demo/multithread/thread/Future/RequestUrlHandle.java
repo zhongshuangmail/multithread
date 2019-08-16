@@ -1,39 +1,45 @@
 package com.demo.multithread.thread.Future;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 @Component
 public abstract class RequestUrlHandle {
-
+	ExecutorService fixed=Executors.newFixedThreadPool(4);
 	
+	public abstract String invoke(RequestParam param) throws InterruptedException;
 
-	public abstract String invoke(RequestResult requestClient, RequestParam param) throws InterruptedException;
-
-	public abstract void receive(RequestResult requestClient,RequestParam param) throws InterruptedException;
+	public abstract void receive(RequestParam param) throws InterruptedException;
 
 	public abstract Protocol protocol();
 
-	public String request(RequestResult result, RequestParam param) throws InterruptedException {
+	public String request(RequestParam param) throws InterruptedException {
+		MyLock lock=new MyLock(Thread.currentThread());
 		System.out.println(Thread.currentThread().getName() + "∑¢ÀÕ«Î«Û" + param);
-		new Thread(new Runnable() {
+		fixed.execute(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					receive(result,param);
+					receive(param);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+				}finally {
+					try {
+						lock.unLock();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		}).start();
-		String invoke = this.invoke(result, param);
+		});
+		lock.lock();
+		String invoke = this.invoke(param);
 		return invoke;
 	}
+
 
 
 }
