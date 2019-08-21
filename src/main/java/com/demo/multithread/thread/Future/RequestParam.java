@@ -10,7 +10,6 @@ public class  RequestParam{
 	
 	private String paramJson;
 	
-	private String result;
 
 
 	public RequestParam(Protocol protocol, String paramJson) {

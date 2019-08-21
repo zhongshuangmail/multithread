@@ -1,45 +1,63 @@
 package com.demo.multithread.thread.Future;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import org.springframework.stereotype.Component;
+
+import com.demo.multithread.thread.Future.CLHLock.CLHNode;
+
 @Component
 public abstract class RequestUrlHandle {
-	ExecutorService fixed=Executors.newFixedThreadPool(4);
 	
+	BlockingQueue<Thread> queue = new LinkedBlockingDeque<Thread>();
+
+	private static CLHLock lock = new CLHLock();
+
+	ExecutorService fixed = Executors.newFixedThreadPool(4);
+
 	public abstract String invoke(RequestParam param) throws InterruptedException;
 
 	public abstract void receive(RequestParam param) throws InterruptedException;
 
 	public abstract Protocol protocol();
 
-	public String request(RequestParam param) throws InterruptedException {
-		MyLock lock=new MyLock(Thread.currentThread());
-		System.out.println(Thread.currentThread().getName() + "∑¢ÀÕ«Î«Û" + param);
+	public String request(RequestParam param) throws InterruptedException, ExecutionException {
+		Thread thread=Thread.currentThread();
+		CLHNode lock2 = lock.lock();
 		fixed.execute(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					receive(param);
+					queue.put(thread);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}finally {
-					try {
-						lock.unLock();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
 				}
 			}
 		});
-		lock.lock();
-		String invoke = this.invoke(param);
+		String invoke = extracted(param);
+		lock.unLock(lock2);
 		return invoke;
 	}
 
+	private String extracted(RequestParam param) throws InterruptedException, ExecutionException {
+		while (true) {
+			try {
+				Thread thread = queue.take();
+				if (thread.equals(Thread.currentThread())) {
+					return invoke(param);
+				}
+			} catch (InterruptedException e) {
 
+			}
+		}
+
+	}
 
 }
