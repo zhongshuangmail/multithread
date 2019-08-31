@@ -1,4 +1,4 @@
-package com.demo.multithread.DO;
+package com.demo.multithread.domain;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -8,10 +8,10 @@ public class SpinLock {
     private  AtomicReference<Thread> cas = new AtomicReference<Thread>();
     public void lock() {
         Thread current = Thread.currentThread();
-        // ÀûÓÃCAS
+        // ï¿½ï¿½ï¿½ï¿½CAS
         System.out.println(cas);
         while (!cas.compareAndSet(null, current)) {
-            System.out.println("²»¶ÏÔÚÑ­»·"+current.getName());
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½"+current.getName());
         }
         System.out.println(cas);
     }

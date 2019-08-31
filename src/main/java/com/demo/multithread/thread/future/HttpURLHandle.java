@@ -1,5 +1,4 @@
-package com.demo.multithread
-.thread.Future;
+package com.demo.multithread.thread.future;
 
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,7 @@ public class HttpURLHandle extends RequestUrlHandle {
 
     @Override
     public  void receive(RequestParam param)  throws InterruptedException {
-    	setResult(Thread.currentThread().getName()+"·µ»Ø½á¹û"+param.getParamJson());
+    	setResult(Thread.currentThread().getName()+"ï¿½ï¿½ï¿½Ø½ï¿½ï¿½"+param.getParamJson());
     }
 
     @Override

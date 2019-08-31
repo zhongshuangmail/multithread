@@ -1,4 +1,4 @@
-package com.demo.multithread.thread.Future;
+package com.demo.multithread.thread.future;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
@@ -10,7 +10,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.springframework.stereotype.Component;
 
-import com.demo.multithread.thread.Future.CLHLock.CLHNode;
+import com.demo.multithread.thread.future.CLHLock.CLHNode;
 
 @Component
 public abstract class RequestUrlHandle {
@@ -29,7 +29,7 @@ public abstract class RequestUrlHandle {
 
 	public String request(RequestParam param) throws InterruptedException, ExecutionException {
 		Thread thread=Thread.currentThread();
-		CLHNode lock2 = lock.lock();
+		CLHNode lockObj = lock.lock();
 		fixed.execute(new Runnable() {
 			@Override
 			public void run() {
@@ -42,7 +42,7 @@ public abstract class RequestUrlHandle {
 			}
 		});
 		String invoke = extracted(param);
-		lock.unLock(lock2);
+		lock.unLock(lockObj);
 		return invoke;
 	}
 
@@ -59,5 +59,5 @@ public abstract class RequestUrlHandle {
 		}
 
 	}
-
+	
 }

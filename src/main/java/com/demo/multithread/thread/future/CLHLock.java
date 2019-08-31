@@ -1,4 +1,4 @@
-package com.demo.multithread.thread.Future;
+package com.demo.multithread.thread.future;
 
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
@@ -11,7 +11,7 @@ public class CLHLock {
 
 	private volatile CLHNode tail;
 
-	private static final ThreadLocal<CLHNode> LOCAL = new ThreadLocal<CLHNode>();
+//	private static final ThreadLocal<CLHNode> LOCAL = new ThreadLocal<CLHNode>();
 
 	private static final AtomicReferenceFieldUpdater<CLHLock, CLHNode> UPDATE = AtomicReferenceFieldUpdater
 			.newUpdater(CLHLock.class, CLHNode.class, "tail");
@@ -25,7 +25,7 @@ public class CLHLock {
 			while (preNode.isLocked) {
 			}
 			preNode = null;
-			LOCAL.set(node);
+//			LOCAL.set(node);
 		}
 		return node;
 	}

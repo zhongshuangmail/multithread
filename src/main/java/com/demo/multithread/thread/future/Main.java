@@ -1,4 +1,4 @@
-package com.demo.multithread.thread.Future;
+package com.demo.multithread.thread.future;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 /**
- * futrueÄ£Ê½£¬Ñ­»·µÈ´ý½á¹û·µ»Ø£¬ÁíÒ»¸öÏß³Ì¸ºÔðÐ´ÈëÊý¾Ý£¬¶àÏß³ÌÏÂ£¬ÐèÒª¶à¸öRequestParam²ÎÊý
+ * futrueÄ£Ê½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß³Ì¸ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Â£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½RequestParamï¿½ï¿½ï¿½ï¿½
  * 
  * @author Administrator
  *
@@ -29,7 +29,7 @@ public class Main {
 
 	public void test(RequestParam param) {
 		RequestUrlHandle requestUrlHandle = map.get(param.getProtocol());
-		try {
+		try { 
 			String request = requestUrlHandle.request(param);
 			System.out.println(request);
 		} catch (InterruptedException | ExecutionException e) {

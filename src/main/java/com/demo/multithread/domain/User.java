@@ -1,4 +1,4 @@
-package com.demo.multithread.DO;
+package com.demo.multithread.domain;
 
 public class User {
     private String name;

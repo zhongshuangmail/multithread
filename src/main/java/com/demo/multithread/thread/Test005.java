@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.demo.multithread.DO.User;
+import com.demo.multithread.domain.User;
 
 public class Test005 {
     public static void main(String[] args) throws InterruptedException {

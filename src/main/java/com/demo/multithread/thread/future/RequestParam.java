@@ -1,4 +1,4 @@
-package com.demo.multithread.thread.Future;
+package com.demo.multithread.thread.future;
 
 import lombok.Getter;
 import lombok.Setter;

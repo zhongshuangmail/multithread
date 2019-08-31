@@ -3,9 +3,9 @@ package com.demo.multithread;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.demo.multithread.thread.Future.Main;
-import com.demo.multithread.thread.Future.Protocol;
-import com.demo.multithread.thread.Future.RequestParam;
+import com.demo.multithread.thread.future.Main;
+import com.demo.multithread.thread.future.Protocol;
+import com.demo.multithread.thread.future.RequestParam;
 
 @SpringBootApplication
 public class Application {
