@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 /**
- * futrueģʽ��ѭ���ȴ�������أ���һ���̸߳���д�����ݣ����߳��£���Ҫ���RequestParam����
+ * futrueģʽ
  * 
  * @author Administrator
  *

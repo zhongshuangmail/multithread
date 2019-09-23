@@ -14,13 +14,15 @@ import com.demo.multithread.thread.future.CLHLock.CLHNode;
 
 @Component
 public abstract class RequestUrlHandle {
-	
-	BlockingQueue<Thread> queue = new LinkedBlockingDeque<Thread>();
+
 
 	private static CLHLock lock = new CLHLock();
 
 	ExecutorService fixed = Executors.newFixedThreadPool(4);
 
+	private volatile boolean flag;
+	
+	
 	public abstract String invoke(RequestParam param) throws InterruptedException;
 
 	public abstract void receive(RequestParam param) throws InterruptedException;
@@ -28,36 +30,28 @@ public abstract class RequestUrlHandle {
 	public abstract Protocol protocol();
 
 	public String request(RequestParam param) throws InterruptedException, ExecutionException {
-		Thread thread=Thread.currentThread();
-		CLHNode lockObj = lock.lock();
+		lock.lock();
+		flag=true;
 		fixed.execute(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					receive(param);
-					queue.put(thread);
+					flag=false;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		String invoke = extracted(param);
-		lock.unLock(lockObj);
+		lock.unLock();
 		return invoke;
 	}
 
 	private String extracted(RequestParam param) throws InterruptedException, ExecutionException {
-		while (true) {
-			try {
-				Thread thread = queue.take();
-				if (thread.equals(Thread.currentThread())) {
-					return invoke(param);
-				}
-			} catch (InterruptedException e) {
-
-			}
+		while(flag) {
 		}
-
+		return invoke(param);
 	}
-	
+
 }

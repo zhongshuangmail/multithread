@@ -21,7 +21,7 @@ public class HttpURLHandle extends RequestUrlHandle {
 
     @Override
     public  void receive(RequestParam param)  throws InterruptedException {
-    	setResult(Thread.currentThread().getName()+"ï¿½ï¿½ï¿½Ø½ï¿½ï¿½"+param.getParamJson());
+    	setResult(Thread.currentThread().getName()+"½ÓÊÜµ½µÄ²ÎÊý£º"+param);
     }
 
     @Override
